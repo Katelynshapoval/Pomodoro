@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useRef } from "react";
 
 export default function Timer() {
-  const [timer, setTimer] = useState("00:25:00");
+  const [timer, setTimer] = useState("25:00");
   const [isPaused, setIsPaused] = useState(false);
   const [isStarted, setIsStarted] = useState(false);
+  const [chosenMode, setChosenMode] = useState("pomodoro");
   // Store the remaining time in milliseconds
   const [timeRemaining, setTimeRemaining] = useState(25 * 60 * 1000);
   // Reference to store the interval ID so we can clear it later
@@ -14,10 +15,22 @@ export default function Timer() {
     if (intervalRef.current) clearInterval(intervalRef.current);
     setIsPaused(false);
     setIsStarted(false);
+    setChosenMode(button);
     let newTimeInMinutes = 25; // Default to Pomodoro time
-    if (button === "pomodoro") newTimeInMinutes = 25;
-    else if (button === "short") newTimeInMinutes = 5;
-    else if (button === "long") newTimeInMinutes = 15;
+    // For background animation
+    let newClass = "";
+    document.getElementById("app").classList = "App";
+    if (button === "pomodoro") {
+      newTimeInMinutes = 25;
+      newClass = "pomodoroBackground";
+    } else if (button === "short") {
+      newTimeInMinutes = 5;
+      newClass = "shortBreakBackground";
+    } else if (button === "long") {
+      newTimeInMinutes = 15;
+      newClass = "longBreakBackground";
+    }
+    document.getElementById("app").classList.add(newClass);
 
     // Update the remaining time in milliseconds
     setTimeRemaining(newTimeInMinutes * 60 * 1000);
@@ -32,7 +45,7 @@ export default function Timer() {
     const minutes = Math.floor(totalSeconds / 60); // Get full minutes
     const seconds = totalSeconds % 60; // Get remaining seconds
     setTimer(
-      `00:${minutes.toString().padStart(2, "0")}:${seconds
+      `${minutes.toString().padStart(2, "0")}:${seconds
         .toString()
         .padStart(2, "0")}`
     );
@@ -95,17 +108,42 @@ export default function Timer() {
     <div className="timer">
       {/* Buttons to switch between different timer modes */}
       <div className="timerModesSwitches">
-        <button onClick={() => setTimeNumber("pomodoro")}>Pomodoro</button>
-        <button onClick={() => setTimeNumber("short")}>Short Break</button>
-        <button onClick={() => setTimeNumber("long")}>Long Break</button>
+        <button
+          className={chosenMode === "pomodoro" ? "activeButton" : ""}
+          onClick={() => setTimeNumber("pomodoro")}
+        >
+          Pomodoro
+        </button>
+        <button
+          className={chosenMode === "short" ? "activeButton" : ""}
+          onClick={() => setTimeNumber("short")}
+        >
+          Short Break
+        </button>
+        <button
+          className={chosenMode === "long" ? "activeButton" : ""}
+          onClick={() => setTimeNumber("long")}
+        >
+          Long Break
+        </button>
       </div>
 
       {/* Display the current timer */}
-      <p>{timer}</p>
+      <p id="timeDisplay">{timer}</p>
 
       {/* Start/Pause/Resume button */}
-      <button onClick={handleTimerToggle}>
-        {isStarted && !isPaused ? "Pause" : "Start"}
+      <button
+        className={`${isStarted && !isPaused ? "buttonPressed" : ""} ${
+          chosenMode === "pomodoro"
+            ? "pomodoroText"
+            : chosenMode === "short"
+            ? "shortBreakText"
+            : "longBreakText"
+        }`}
+        id="manageTimer"
+        onClick={handleTimerToggle}
+      >
+        {isStarted && !isPaused ? "PAUSE" : "START"}
       </button>
     </div>
   );

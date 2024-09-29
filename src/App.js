@@ -82,7 +82,7 @@ function App() {
   };
 
   return (
-    <div className="App">
+    <div className="App pomodoroBackground" id="app">
       {/* Timer component for Pomodoro functionality */}
       <Timer />
 
