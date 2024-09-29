@@ -11,6 +11,9 @@ export default function Timer() {
 
   // Function to set the time based on the mode selected (Pomodoro, short break, long break)
   const setTimeNumber = (button) => {
+    if (intervalRef.current) clearInterval(intervalRef.current);
+    setIsPaused(false);
+    setIsStarted(false);
     let newTimeInMinutes = 25; // Default to Pomodoro time
     if (button === "pomodoro") newTimeInMinutes = 25;
     else if (button === "short") newTimeInMinutes = 5;

@@ -1,6 +1,7 @@
 import { FaRegTrashAlt } from "react-icons/fa";
+import { MdEdit } from "react-icons/md";
 
-export default function ToDo({ todo, toggleComplete, deleteTodo }) {
+export default function ToDo({ todo, toggleComplete, deleteTodo, editTodo }) {
   return (
     <li>
       <div>
@@ -16,6 +17,8 @@ export default function ToDo({ todo, toggleComplete, deleteTodo }) {
 
       {/* Button to delete the todo */}
       <button onClick={() => deleteTodo(todo.id)}>{<FaRegTrashAlt />}</button>
+      {/* Button to edit the todo */}
+      <button onClick={() => editTodo(todo)}>{<MdEdit />}</button>
     </li>
   );
 }
