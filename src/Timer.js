@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import sound from "./assets/alarm.mp3";
 
 export default function Timer() {
   const [timer, setTimer] = useState("25:00");
@@ -19,7 +20,8 @@ export default function Timer() {
     let newTimeInMinutes = 25; // Default to Pomodoro time
     // For background animation
     let newClass = "";
-    document.getElementById("app").classList = "App";
+    // document.getElementById("app").classList = "App";
+    document.body.classList = "";
     if (button === "pomodoro") {
       newTimeInMinutes = 25;
       newClass = "pomodoroBackground";
@@ -30,7 +32,8 @@ export default function Timer() {
       newTimeInMinutes = 15;
       newClass = "longBreakBackground";
     }
-    document.getElementById("app").classList.add(newClass);
+    // document.getElementById("app").classList.add(newClass);
+    document.body.classList.add(newClass);
 
     // Update the remaining time in milliseconds
     setTimeRemaining(newTimeInMinutes * 60 * 1000);
@@ -50,7 +53,15 @@ export default function Timer() {
         .padStart(2, "0")}`
     );
   };
+  const playAudio = () => {
+    const alarmAudio = new Audio(sound);
+    alarmAudio.play();
 
+    setTimeout(() => {
+      alarmAudio.pause(); // Stop the audio
+      alarmAudio.currentTime = 0; // Reset the audio to the beginning
+    }, 3000); // Stop after 3 seconds
+  };
   // Function to start the timer
   const startTimer = () => {
     const startTime = Date.now(); // Get current time in milliseconds
@@ -58,6 +69,7 @@ export default function Timer() {
 
     // Create a new interval that ticks every second
     intervalRef.current = setInterval(() => {
+      // new Audio(alarm).play();
       const now = Date.now();
       const remaining = Math.max(0, deadline - now);
 
@@ -68,6 +80,7 @@ export default function Timer() {
       if (remaining === 0) {
         clearInterval(intervalRef.current);
         setIsStarted(false);
+        playAudio();
       }
     }, 1000);
   };

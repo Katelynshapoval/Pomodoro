@@ -3,22 +3,33 @@ import { MdEdit } from "react-icons/md";
 
 export default function ToDo({ todo, toggleComplete, deleteTodo, editTodo }) {
   return (
-    <li>
-      <div>
+    <li class="todoItem">
+      <div className="todoText">
         {/* Checkbox to toggle the completion status of the todo */}
         <input
           onChange={() => toggleComplete(todo)}
           type="checkbox"
           checked={todo.completed ? "checked" : ""}
         />
-
-        <p onClick={() => toggleComplete(todo)}>{todo.text}</p>
+        <p
+          className={todo.completed ? "toDoCompleted" : ""}
+          onClick={() => toggleComplete(todo)}
+        >
+          {todo.text}
+        </p>
+        {/* <p className={todo.completed ? "toDoCompleted"} onClick={() => toggleComplete(todo)}>{todo.text}</p> */}
       </div>
 
-      {/* Button to delete the todo */}
-      <button onClick={() => deleteTodo(todo.id)}>{<FaRegTrashAlt />}</button>
-      {/* Button to edit the todo */}
-      <button onClick={() => editTodo(todo)}>{<MdEdit />}</button>
+      <div className="todoButtons">
+        {/* Button to delete the todo */}
+        <button className="todoButton" onClick={() => deleteTodo(todo.id)}>
+          {<FaRegTrashAlt size={17} />}
+        </button>
+        {/* Button to edit the todo */}
+        <button className="todoButton" onClick={() => editTodo(todo)}>
+          {<MdEdit size={17} />}
+        </button>
+      </div>
     </li>
   );
 }

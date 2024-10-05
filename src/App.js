@@ -82,23 +82,25 @@ function App() {
   };
 
   return (
-    <div className="App pomodoroBackground" id="app">
+    <div className="App" id="app">
       {/* Timer component for Pomodoro functionality */}
       <Timer />
 
       {/* Form to add a new todo */}
       <form onSubmit={editingTodo ? saveEditedTodo : createTodo}>
         <input
+          maxLength={25}
           value={input}
           onChange={(e) => setInput(e.target.value)} // Update input value as user types
           type="text"
           placeholder="Add Todo"
+          id="inputTodo"
         />
-        <button>{editingTodo ? "Save" : "Add"}</button>
+        <button id="formButton">{editingTodo ? "Save" : "Add"}</button>
       </form>
 
       {/* List of todos */}
-      <ul>
+      <ul id="toDoList">
         {todos.map((todo, index) => (
           <ToDo
             key={index}

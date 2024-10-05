@@ -14,19 +14,30 @@
   src: url("fonts/ARIALROUNDEDMTLIGHT.woff");
 }
 
+body {
+  overflow-y: auto;
+  height: 100vh;
+  background-color: #624e88;
+  display: flex;
+  justify-content: center;
+  flex-shrink: 1 0 auto;
+}
+
 .App {
   display: flex;
   justify-content: center;
   flex-direction: column;
   align-items: center;
-  height: 100vh;
+  padding: 50px;
+  min-height: 100%;
+  /* height: 100vh; */
   /* overflow: hidden; */
   /* margin: 100px; */
 }
 
 .timer {
   width: 500px;
-  height: 330px;
+  min-height: 330px;
   border-radius: 15px;
   /* background-color: rgb(105, 93, 134); */
   background-color: rgba(255, 255, 255, 0.1);
@@ -104,4 +115,75 @@
 }
 .longBreakText {
   color: #3a6d8c;
+}
+
+/* Todo */
+
+form {
+  margin-top: 20px;
+}
+
+#inputTodo {
+  width: 250px;
+  height: 30px;
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+  margin: 10px;
+}
+
+#inputTodo:focus {
+  /* border: 1px solid black; */
+  outline: 1px solid black;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+#formButton {
+  height: 30px;
+  width: 50px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+}
+
+#formButton:active {
+  transform: translateY(2px);
+}
+
+#toDoList li {
+  list-style: none;
+  background-color: #38858a;
+  width: 350px;
+  /* height: 30px; */
+  margin: 20px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+}
+
+.todoItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px;
+}
+
+.todoText {
+  display: flex;
+  gap: 10px;
+  margin-left: 10px;
+}
+
+.todoButton {
+  background-color: transparent;
+  border: none;
+  margin: 6px;
+  cursor: pointer;
+}
+
+.todoButton:hover {
+  color: white;
+}
+
+.toDoCompleted {
+  text-decoration: line-through;
 }
